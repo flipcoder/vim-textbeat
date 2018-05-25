@@ -1,5 +1,5 @@
-# vim-music
+# vim-decadence
 
-Vim bindings for the plaintext music tracker, [decadence](https://github.com/flipcoder/decadence)
+Write music in vim using the plaintext music tracker, [decadence](https://github.com/flipcoder/decadence).
 
 WORK IN PROGRESS
