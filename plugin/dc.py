@@ -4,8 +4,6 @@ import select
 DECADENCE_PATH = os.path.join(os.path.expanduser('~'),'bin','decadence')
 DEVNULL = open(os.devnull, 'w')
 
-i = 0
-
 class VimDecadencePlugin:
     def __init__(self):
         self.processes = []
