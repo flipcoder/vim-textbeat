@@ -29,6 +29,7 @@ class VimDecadencePlugin:
         print 'Playing'
         self.processes.append(subprocess.Popen([\
             DECADENCE_PATH,\
+            '--follow',
             '+'+str(max(0,vim.current.window.cursor[0]-1)),\
             vim.current.buffer.name\
         ],
