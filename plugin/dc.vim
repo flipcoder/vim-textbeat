@@ -35,5 +35,5 @@ command! -nargs=0 DecadenceStartTimer call dc#starttimer()
 command! -nargs=0 DecadenceStopTimer call dc#stoptimer()
 
 "command! BufWritePost *.dc DecadenceReload
-"nmap <silent> <buffer> <cr> :DecadencePlayPause<cr>
+"nmap <silent> <buffer> <cr> :DecadencePlay<cr>
 
