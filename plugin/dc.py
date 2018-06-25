@@ -15,8 +15,6 @@ class VimDecadencePlugin:
             print("vim-decadence: in your .vimrc, set the locations:")
             print("   let g:decadence_python = '/usr/bin/python2'")
             print("   let g:decadence_path = '~/bin/decadence/decadence.py'")
-            print("decadence_python must be Python2.x")
-            print("Vim python should not matter.")
             print("In the future, this will be automatic.")
             return False
         return True
