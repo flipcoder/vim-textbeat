@@ -27,6 +27,7 @@ function! dc#stoptimer()
     unlet s:dctimer
 endfunc
 
+
 au filetype dc set ve=all
 command! -nargs=0 DecadencePlay call dc#play()
 command! -nargs=0 DecadencePlayLine call dc#playline()
@@ -34,6 +35,16 @@ command! -nargs=0 DecadenceReload call dc#reload()
 command! -nargs=0 DecadenceStartTimer call dc#starttimer()
 command! -nargs=0 DecadenceStopTimer call dc#stoptimer()
 
-"command! BufWritePost *.dc DecadenceReload
-"nmap <silent> <buffer> <cr> :DecadencePlay<cr>
+au! BufRead,BufWritePost *.dc DecadenceReload
+
+if !exists("g:decadence_no_mappings") || !g:decadence_no_mappings
+    "nmap <silent> <buffer> <cr> :DecadencePlay<cr>
+endif
+
+if exists("g:decadence_path")
+    py VimDecadence.set_dc_path(vim.eval("g:decadence_path"))
+endif
+if exists("g:decadence_python")
+    py VimDecadence.set_python(vim.eval("g:decadence_python"))
+endif
 
