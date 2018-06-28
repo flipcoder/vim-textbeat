@@ -7,6 +7,9 @@ execute 'pyfile '. escape(expand('<sfile>:p:h'),'\') . '/dc.py'
 function! dc#play()
     py VimDecadence.play()
 endfunc
+function! dc#stop()
+    py VimDecadence.play()
+endfunc
 function! dc#playline()
     py VimDecadence.playline()
 endfunc
@@ -20,7 +23,7 @@ function! dc#starttimer()
     if exists('s:dctimer')
         call timer_stop(s:dctimer)
     endif
-    let s:dctimer = timer_start(100, 'dc#poll', {'repeat':-1})
+    let s:dctimer = timer_start(10, 'dc#poll', {'repeat':-1})
 endfunc
 function! dc#stoptimer()
     call timer_stop(s:dctimer)
@@ -38,7 +41,9 @@ command! -nargs=0 DecadenceStopTimer call dc#stoptimer()
 au! BufRead,BufWritePost *.dc DecadenceReload
 
 if !exists("g:decadence_no_mappings") || !g:decadence_no_mappings
-    "nmap <silent> <buffer> <cr> :DecadencePlay<cr>
+    "nmap <silent><buffer> <cr><cr> :DecadencePlay<cr>
+    "nmap <silent><buffer> <cr><esc> :DecadenceStop<cr>
+    "nmap <silent><buffer> <cr><space> :DecadencePlayLine<cr>
 endif
 
 if exists("g:decadence_path")

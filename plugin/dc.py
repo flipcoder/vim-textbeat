@@ -13,7 +13,7 @@ class VimDecadencePlugin:
     def check_paths(self):
         if not self.PYTHON or not self.DC_PATH:
             print("vim-decadence: in your .vimrc, set the locations:")
-            print("   let g:decadence_python = '/usr/bin/python2'")
+            print("   let g:decadence_python = '/usr/bin/python'")
             print("   let g:decadence_path = '~/bin/decadence/decadence.py'")
             print("In the future, this will be automatic.")
             return False
@@ -21,6 +21,7 @@ class VimDecadencePlugin:
 
     def __init__(self):
         self.processes = []
+        self.process_buf = {}
         self.playing = False
         self.PYTHON = None
         self.DC_PATH = None
@@ -34,6 +35,7 @@ class VimDecadencePlugin:
                 except:
                     pass
                 term += 1
+        self.process_buf = {}
         self.processes = []
         return term
     def refresh(self):
@@ -45,7 +47,7 @@ class VimDecadencePlugin:
         vim.command('call dc#starttimer()')
         vim.command('set cursorline')
         print('Playing')
-        self.processes.append(subprocess.Popen([\
+        p = subprocess.Popen([\
             self.PYTHON,\
             self.DC_PATH,\
             '--follow',
@@ -54,21 +56,26 @@ class VimDecadencePlugin:
         ],
             stdout=subprocess.PIPE, stderr=subprocess.PIPE,
             bufsize=1, universal_newlines=True
-        ))
+        )
+        self.processes.append(p)
+        self.process_buf[p] = ''
     def playline(self):
         if not self.check_paths(): return
         self.stop()
-        self.processes.append(subprocess.Popen([\
+        p = subprocess.Popen([\
             self.PYTHON,\
             self.DC_PATH,\
             '-l',\
             vim.current.line\
-        ], stdout=self.DEVNULL, stderr=self.DEVNULL))
+        ], stdout=self.DEVNULL, stderr=self.DEVNULL)
+        self.processes.append(p)
+        self.process_buf[p] = ''
     def poll(self):
         running = 0
         done = False
         active = 0
         for p in self.processes:
+            # phash = hash(p)
             working = False
             if p.poll()==None:
                 active += 1
@@ -83,8 +90,13 @@ class VimDecadencePlugin:
                 buf = p.stdout.read(1)
                 if not buf:
                     break
+                pbuf = self.process_buf[p]
                 if buf=='\n':
-                    vim.command('normal! '+str(buf.count('\n'))+'j')
+                    # vim.command('normal! '+str(buf.count('\n'))+'j')
+                    vim.command('exe ' + str(int(pbuf)+1))
+                    self.process_buf[p] = ''
+                else:
+                    self.process_buf[p] += buf
                 working = True
             if working:
                 running += 1
@@ -92,6 +104,7 @@ class VimDecadencePlugin:
             print('Stopped')
             vim.command('call dc#stoptimer()')
             vim.command('set cursorline&')
+        return running
     def reload(self):
         for i in xrange(2): # first 2 lines check for header
             try:
