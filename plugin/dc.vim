@@ -23,7 +23,7 @@ function! dc#starttimer()
     if exists('s:dctimer')
         call timer_stop(s:dctimer)
     endif
-    let s:dctimer = timer_start(10, 'dc#poll', {'repeat':-1})
+    let s:dctimer = timer_start(20, 'dc#poll', {'repeat':-1})
 endfunc
 function! dc#stoptimer()
     call timer_stop(s:dctimer)
