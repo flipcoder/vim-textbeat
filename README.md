@@ -1,4 +1,4 @@
-# ![Decadence](icon.png) vim-decadence
+# ![Decadence](https://github.com/flipcoder/decadence/blob/master/icon.png) vim-decadence
 
 Write music in vim using [decadence](https://github.com/flipcoder/decadence)
 

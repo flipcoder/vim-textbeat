@@ -10,9 +10,9 @@ syn match dcBus '^%.*'
 "syn match dcCall ':\w*|'
 syn match dcNoteNumber '[b#]*[0-9]+'
 syn match dcNoteName '[A-G][b#]*'
-syn match dcPop '|||'
-syn region dcLabel start='|^|' end=':'
-syn region dcCall start=':' end='|'
+"syn match dcPop '|||'
+"syn region dcLabel start='|^|' end=':'
+"syn region dcCall start=':' end='|'
 
 "syn keyword dcKeywords m ma maj min dim dom mu
 
