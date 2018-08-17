@@ -1,20 +1,20 @@
 from __future__ import print_function
 import vim,subprocess,os,select
 
-class VimDecadencePlugin:
+class VimTextbeatPlugin:
     DEVNULL = open(os.devnull, 'w')
     
     def set_python(self,p):
         self.PYTHON = os.path.expanduser(p)
     
-    def set_dc_path(self,p):
-        self.DC_PATH = os.path.expanduser(p)
+    def set_txbt_path(self,p):
+        self.TXBT_PATH = os.path.expanduser(p)
 
     def check_paths(self):
-        if not self.PYTHON or not self.DC_PATH:
-            print("vim-decadence: in your .vimrc, set the locations:")
-            print("   let g:decadence_python = '/usr/bin/python'")
-            print("   let g:decadence_path = '~/bin/decadence/decadence.py'")
+        if not self.PYTHON or not self.TXBT_PATH:
+            print("vim-textbeat: in your .vimrc, set the locations:")
+            print("   let g:textbeat_python = '/usr/bin/python'")
+            print("   let g:textbeat_path = '~/bin/textbeat/textbeat.py'")
             print("In the future, this will be automatic.")
             return False
         return True
@@ -24,7 +24,7 @@ class VimDecadencePlugin:
         self.process_buf = {}
         self.playing = False
         self.PYTHON = None
-        self.DC_PATH = None
+        self.TXBT_PATH = None
         
     def stop(self):
         term = 0
@@ -44,12 +44,12 @@ class VimDecadencePlugin:
         if not self.check_paths(): return
         if self.stop():
             return
-        vim.command('call dc#starttimer()')
+        vim.command('call txbt#starttimer()')
         vim.command('set cursorline')
         print('Playing')
         p = subprocess.Popen([\
             self.PYTHON,\
-            self.DC_PATH,\
+            self.TXBT_PATH,\
             '--follow',
             '+'+str(max(0,vim.current.window.cursor[0]-1)),\
             vim.current.buffer.name\
@@ -64,7 +64,7 @@ class VimDecadencePlugin:
         self.stop()
         p = subprocess.Popen([\
             self.PYTHON,\
-            self.DC_PATH,\
+            self.TXBT_PATH,\
             '-l',\
             vim.current.line\
         ], stdout=self.DEVNULL, stderr=self.DEVNULL)
@@ -102,7 +102,7 @@ class VimDecadencePlugin:
                 running += 1
         if not active:
             print('Stopped')
-            vim.command('call dc#stoptimer()')
+            vim.command('call txbt#stoptimer()')
             vim.command('set cursorline&')
         return running
     def reload(self):
@@ -127,5 +127,5 @@ class VimDecadencePlugin:
                             return
 
 
-VimDecadence = VimDecadencePlugin()
+VimTextbeat = VimTextbeatPlugin()
 

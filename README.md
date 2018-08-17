@@ -1,6 +1,6 @@
-# ![Decadence](https://github.com/flipcoder/decadence/blob/master/icon.png) vim-decadence
+# vim-textbeat
 
-Write music in vim using [decadence](https://github.com/flipcoder/decadence)
+Write music in vim using [textbeat](https://github.com/flipcoder/textbeat)
 
 This is only the plug-in repo. The backend code is in the repo above.
 
