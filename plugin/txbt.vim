@@ -1,3 +1,8 @@
+au filetype txbt set ve=all
+
+if v:version < 800
+    finish
+endif
 if !has('python')
     finish
 endif
@@ -30,8 +35,6 @@ function! txbt#stoptimer()
     unlet s:txbttimer
 endfunc
 
-
-au filetype txbt set ve=all
 command! -nargs=0 TextbeatPlay call txbt#play()
 command! -nargs=0 TextbeatPlayLine call txbt#playline()
 command! -nargs=0 TextbeatReload call txbt#reload()
@@ -48,8 +51,13 @@ endif
 
 if exists("g:textbeat_path")
     py VimTextbeat.set_txbt_path(vim.eval("g:textbeat_path"))
+else
+    py VimTextbeat.set_txbt_path("textbeat")
 endif
+
 if exists("g:textbeat_python")
     py VimTextbeat.set_python(vim.eval("g:textbeat_python"))
+else
+    py VimTextbeat.set_python("python")
 endif
 

@@ -6,15 +6,15 @@ class VimTextbeatPlugin:
     
     def set_python(self,p):
         self.PYTHON = os.path.expanduser(p)
-    
+
     def set_txbt_path(self,p):
         self.TXBT_PATH = os.path.expanduser(p)
 
     def check_paths(self):
-        if not self.PYTHON or not self.TXBT_PATH:
+        if not self.TXBT_PATH:
             print("vim-textbeat: in your .vimrc, set the locations:")
-            print("   let g:textbeat_python = '/usr/bin/python'")
-            print("   let g:textbeat_path = '~/bin/textbeat/textbeat.py'")
+            # print("   let g:python_path = '/usr/bin/python'")
+            print("   let g:textbeat_path = '~/bin/textbeat/txbt'")
             print("In the future, this will be automatic.")
             return False
         return True
@@ -23,7 +23,6 @@ class VimTextbeatPlugin:
         self.processes = []
         self.process_buf = {}
         self.playing = False
-        self.PYTHON = None
         self.TXBT_PATH = None
         
     def stop(self):
@@ -48,7 +47,6 @@ class VimTextbeatPlugin:
         vim.command('set cursorline')
         print('Playing')
         p = subprocess.Popen([\
-            self.PYTHON,\
             self.TXBT_PATH,\
             '--follow',
             '+'+str(max(0,vim.current.window.cursor[0]-1)),\
@@ -63,7 +61,6 @@ class VimTextbeatPlugin:
         if not self.check_paths(): return
         self.stop()
         p = subprocess.Popen([\
-            self.PYTHON,\
             self.TXBT_PATH,\
             '-l',\
             vim.current.line\
