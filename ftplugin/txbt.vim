@@ -41,7 +41,10 @@ command! -buffer -nargs=0 TextbeatReload call txbt#reload()
 command! -buffer -nargs=0 TextbeatStartTimer call txbt#starttimer()
 command! -buffer -nargs=0 TextbeatStopTimer call txbt#stoptimer()
 
-au! BufRead,BufWritePost <buffer> TextbeatReload
+augroup textbeat
+    au! BufRead,BufWritePost <buffer>
+    au  BufRead,BufWritePost <buffer> TextbeatReload
+augroup end
 
 if !exists("g:textbeat_no_mappings") || !g:textbeat_no_mappings
     "nmap <silent><buffer> <cr><cr> :TextbeatPlay<cr>
