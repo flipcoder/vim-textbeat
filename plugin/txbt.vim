@@ -7,22 +7,22 @@ if !has('pythonx')
     finish
 endif
 
-execute 'pyxfile '. escape(expand('<sfile>:p:h'),'\') . '/txbt.py'
+pyx import txbtclient
 
 function! txbt#play()
-    pyx VimTextbeat.play()
+    pyx txbtclient.VimTextbeat.play()
 endfunc
 function! txbt#stop()
-    pyx VimTextbeat.play()
+    pyx txbtclient.VimTextbeat.play()
 endfunc
 function! txbt#playline()
-    pyx VimTextbeat.playline()
+    pyx txbtclient.VimTextbeat.playline()
 endfunc
 function! txbt#reload()
-    pyx VimTextbeat.reload()
+    pyx txbtclient.VimTextbeat.reload()
 endfunc
 function! txbt#poll(a)
-    pyx VimTextbeat.poll()
+    pyx txbtclient.VimTextbeat.poll()
 endfunc
 function! txbt#starttimer()
     if exists('s:txbttimer')
@@ -50,14 +50,14 @@ if !exists("g:textbeat_no_mappings") || !g:textbeat_no_mappings
 endif
 
 if exists("g:textbeat_path")
-    pyx VimTextbeat.set_txbt_path(vim.eval("g:textbeat_path"))
+    pyx txbtclient.VimTextbeat.set_txbt_path(vim.eval("g:textbeat_path"))
 else
-    pyx VimTextbeat.set_txbt_path("textbeat")
+    pyx txbtclient.VimTextbeat.set_txbt_path("textbeat")
 endif
 
 if exists("g:textbeat_python")
-    pyx VimTextbeat.set_python(vim.eval("g:textbeat_python"))
+    pyx txbtclient.VimTextbeat.set_python(vim.eval("g:textbeat_python"))
 else
-    pyx VimTextbeat.set_python("python")
+    pyx txbtclient.VimTextbeat.set_python("python")
 endif
 
