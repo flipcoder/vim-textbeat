@@ -1,4 +1,4 @@
-au filetype txbt set ve=all
+set ve=all
 
 if v:version < 800
     finish
@@ -35,13 +35,13 @@ function! txbt#stoptimer()
     unlet s:txbttimer
 endfunc
 
-command! -nargs=0 TextbeatPlay call txbt#play()
-command! -nargs=0 TextbeatPlayLine call txbt#playline()
-command! -nargs=0 TextbeatReload call txbt#reload()
-command! -nargs=0 TextbeatStartTimer call txbt#starttimer()
-command! -nargs=0 TextbeatStopTimer call txbt#stoptimer()
+command! -buffer -nargs=0 TextbeatPlay call txbt#play()
+command! -buffer -nargs=0 TextbeatPlayLine call txbt#playline()
+command! -buffer -nargs=0 TextbeatReload call txbt#reload()
+command! -buffer -nargs=0 TextbeatStartTimer call txbt#starttimer()
+command! -buffer -nargs=0 TextbeatStopTimer call txbt#stoptimer()
 
-au! BufRead,BufWritePost *.txbt TextbeatReload
+au! BufRead,BufWritePost <buffer> TextbeatReload
 
 if !exists("g:textbeat_no_mappings") || !g:textbeat_no_mappings
     "nmap <silent><buffer> <cr><cr> :TextbeatPlay<cr>
