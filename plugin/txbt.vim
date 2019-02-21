@@ -3,26 +3,26 @@ au filetype txbt set ve=all
 if v:version < 800
     finish
 endif
-if !has('python')
+if !has('pythonx')
     finish
 endif
 
-execute 'pyfile '. escape(expand('<sfile>:p:h'),'\') . '/txbt.py'
+execute 'pyxfile '. escape(expand('<sfile>:p:h'),'\') . '/txbt.py'
 
 function! txbt#play()
-    py VimTextbeat.play()
+    pyx VimTextbeat.play()
 endfunc
 function! txbt#stop()
-    py VimTextbeat.play()
+    pyx VimTextbeat.play()
 endfunc
 function! txbt#playline()
-    py VimTextbeat.playline()
+    pyx VimTextbeat.playline()
 endfunc
 function! txbt#reload()
-    py VimTextbeat.reload()
+    pyx VimTextbeat.reload()
 endfunc
 function! txbt#poll(a)
-    py VimTextbeat.poll()
+    pyx VimTextbeat.poll()
 endfunc
 function! txbt#starttimer()
     if exists('s:txbttimer')
@@ -50,14 +50,14 @@ if !exists("g:textbeat_no_mappings") || !g:textbeat_no_mappings
 endif
 
 if exists("g:textbeat_path")
-    py VimTextbeat.set_txbt_path(vim.eval("g:textbeat_path"))
+    pyx VimTextbeat.set_txbt_path(vim.eval("g:textbeat_path"))
 else
-    py VimTextbeat.set_txbt_path("textbeat")
+    pyx VimTextbeat.set_txbt_path("textbeat")
 endif
 
 if exists("g:textbeat_python")
-    py VimTextbeat.set_python(vim.eval("g:textbeat_python"))
+    pyx VimTextbeat.set_python(vim.eval("g:textbeat_python"))
 else
-    py VimTextbeat.set_python("python")
+    pyx VimTextbeat.set_python("python")
 endif
 
