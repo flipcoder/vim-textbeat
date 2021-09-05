@@ -14,13 +14,13 @@ Install as a vim plugin.
 
 Clone [textbeat](https://github.com/flipcoder/textbeat).
 
-Run `c:/clones/textbeat/setup.py` to install dependencies and make `textbeat`
+Run textbeat's `setup.py` to install dependencies and make `textbeat`
 python module available. Must use python3!
 
-And the txbt path to your vimrc:
+And add the txbt path to your vimrc:
 
     if has('win32')
-        let g:textbeat_path = 'c:/clones/textbeat/txbt.cmd'
+        let g:textbeat_path = 'path-to-textbeat/txbt.cmd'
     else
-        let g:textbeat_path = 'c:/clones/textbeat/txbt'
+        let g:textbeat_path = 'path-to-textbeat/txbt'
     endif
